@@ -1,0 +1,23 @@
+import requests
+import base64
+import time
+import json
+
+github_token = '8f8d1a413845f47d0a494d6e3946fcd1fb3bc6b9'
+headers = {'Authorization': 'token ' + github_token}
+
+
+resp = requests.get('https://api.github.com/repos/Algrabos/alek-grab-test', headers=headers)
+print(resp)
+
+if resp.status_code == 200:
+    resp = requests.delete('https://api.github.com/repos/Algrabos/alek-grab-test', headers=headers)
+    time.sleep(5)
+    print("Deleteing old fork...")
+    resp = requests.post('https://api.github.com/repos/arodzik/alek-grab-test/forks', headers=headers)
+    print("Creating new fork...")
+else:
+    resp = requests.post('https://api.github.com/repos/arodzik/alek-grab-test/forks', headers=headers)
+    print("Creating new fork...")
+
+time.sleep(20)
